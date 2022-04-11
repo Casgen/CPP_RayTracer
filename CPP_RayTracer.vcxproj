@@ -161,15 +161,19 @@
     <ClCompile Include="math\Color.cpp" />
     <ClCompile Include="math\Ray.cpp" />
     <ClCompile Include="model\HittableObject.cpp" />
+    <ClCompile Include="model\Sphere.cpp" />
     <ClCompile Include="render\Camera.cpp" />
+    <ClCompile Include="render\Renderer.cpp" />
     <ClCompile Include="render\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Aliases.h" />
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\Ray.h" />
-    <ClInclude Include="model\HIttableObject.h" />
+    <ClInclude Include="model\HittableObject.h" />
+    <ClInclude Include="model\Sphere.h" />
     <ClInclude Include="render\Camera.h" />
+    <ClInclude Include="render\Renderer.h" />
     <ClInclude Include="render\Scene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -178,11 +182,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\glm.0.9.9.800\build\native\glm.targets" Condition="Exists('packages\glm.0.9.9.800\build\native\glm.targets')" />
+    <Import Project="packages\Microsoft-CppUnitTestFramework.15.0.0\build\native\Microsoft-CppUnitTestFramework.targets" Condition="Exists('packages\Microsoft-CppUnitTestFramework.15.0.0\build\native\Microsoft-CppUnitTestFramework.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Tenhle projekt odkazuje na balíčky NuGet, které nejsou v tomhle počítači k dispozici. Když je chcete stáhnout, použijte funkci obnovení balíčků NuGet.  Další informace najdete na adrese http://go.microsoft.com/fwlink/?LinkID=322105. Chybějícím souborem je soubor {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\glm.0.9.9.800\build\native\glm.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\glm.0.9.9.800\build\native\glm.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft-CppUnitTestFramework.15.0.0\build\native\Microsoft-CppUnitTestFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft-CppUnitTestFramework.15.0.0\build\native\Microsoft-CppUnitTestFramework.targets'))" />
   </Target>
 </Project>

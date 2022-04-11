@@ -3,7 +3,6 @@
 
 class Ray
 {
-private:
     Vec3 Origin, Direction = Vec3();
 
 public:
@@ -20,6 +19,8 @@ public:
     //Setters
     void SetOrigin(const Vec4 &Orig) {Origin = Orig;}
     void SetDirection(const Vec4 &Dir) {Direction = normalize(Dir);}
-    
+
+    //Unique Funcs
+    Vec3 At(float t) { return Origin+t*Direction;}
     
 };
