@@ -7,7 +7,7 @@ class Sphere : public HittableObject
 
 public:
     Sphere() = default;
-    Sphere(const Vec4 center, const Color col, const float r)
+    Sphere(const vec4 center, const Color col, const float r)
         : HittableObject(center, col), Radius(r) {}
     //Getters
     float GetRadius() const {return Radius;}
