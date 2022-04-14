@@ -3,17 +3,17 @@
 
 class Sphere : public HittableObject
 {
-    float Radius = 0;
+    float radius = 0;
 
 public:
     Sphere() = default;
-    Sphere(const vec4 center, const Color col, const float r)
-        : HittableObject(center, col), Radius(r) {}
+    Sphere(const vec3 center, const Color col, const float r)
+        : HittableObject(center, col), radius(r) {}
     //Getters
-    float GetRadius() const {return Radius;}
+    float Getradius() const {return radius;}
 
     //Setters
-    void SetRadius(float radius) {Radius = radius;}
+    void Setradius(float const r) {radius = r;}
 
-    void TestIntersection(const Ray& ray) override;
+    float TestIntersection(const Ray& ray) override;
 };

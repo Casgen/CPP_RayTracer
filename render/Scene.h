@@ -7,12 +7,12 @@
 class Scene
 {
    Camera Cam;
-   std::vector<HittableObject> HittableObjects;
+   std::vector<HittableObject*> HittableObjects;
 
 public:
 
    //------Constructors-------
-   Scene(const Camera& cam, std::vector<HittableObject>& objects)
+   Scene(const Camera& cam, std::vector<HittableObject*> objects)
       : Cam(cam), HittableObjects(std::move(objects)) {}
 
    Scene(const Camera& cam) : Cam(cam) {}
@@ -20,7 +20,7 @@ public:
    
    //---------Getters---------
    Camera GetCamera() const {return Cam;}
-   std::vector<HittableObject> GetObjects() const {return HittableObjects;}
+   std::vector<HittableObject*> GetObjects() const {return HittableObjects;}
 
    
    //---------Setters---------
@@ -29,7 +29,7 @@ public:
 
    
    //------Unique Funcs-------
-   void AddHittableObject(const HittableObject& obj) {HittableObjects.push_back(obj);}
+   void AddHittableObject(HittableObject* obj) {HittableObjects.push_back(obj);}
    void SendARay();
     
 };

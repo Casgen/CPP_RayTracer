@@ -1,12 +1,14 @@
 ﻿#include "HittableObject.h"
 
+#include <memory>
+
 void HittableObject::Translate(vec3 trans)
 {
     
 }
 
-void HittableObject::TestIntersection(const Ray& ray)
-{
-    
-}
 
+float HittableObject::TestIntersection(const Ray& ray)
+{
+    return false;
+}

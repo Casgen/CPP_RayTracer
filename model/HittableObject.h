@@ -1,30 +1,31 @@
 ﻿#pragma once
 
+#include <memory>
 #include <glm/glm.hpp>
 #include "../math/Color.h"
 #include "../math/Ray.h"
 
 class HittableObject
 {
-private:
-    vec4 Position = vec4();
-    mat4x4 TransformMat = mat4x4(1);
+protected:
+    vec3 position = vec3();
+    mat4x4 transformMat = mat4x4(1);
     Color color = Color();
     
 public:
     
     //Constructors
     HittableObject() = default;
-    HittableObject(const vec4 pos, const Color col) : Position(pos), TransformMat(mat4x4()), color(col) {}
+    HittableObject(const vec3 pos, const Color col) : position(pos), transformMat(mat4x4()), color(col) {}
     
     // Getters
-    vec4 GetPosition() const {return Position;}
-    mat4x4 GetTransformMat() const {return TransformMat;}
-
+    vec3 GetPosition() const {return position;}
+    mat4x4 GettransformMat() const {return transformMat;}
+    Color GetColor() const {return color;}
     //Setters
-    void SetPosition(const vec4 pos) {Position = vec4(pos);}
+    void SetPosition(const vec4 pos) {position = vec4(pos);}
     void Translate(vec3 trans);
 
     //Unique Funcs
-    virtual void TestIntersection(const Ray& ray);
+    virtual float TestIntersection(const Ray& ray);
 };
