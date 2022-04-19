@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include "../math/Color.h"
 #include "../math/Ray.h"
+#include "HitRecord.h"
 
 class HittableObject
 {
@@ -27,5 +28,5 @@ public:
     void Translate(vec3 trans);
 
     //Unique Funcs
-    virtual float TestIntersection(const Ray& ray);
+    virtual bool TestIntersection(Ray& ray, HitRecord& hitRecord, float tMin, float tMax);
 };

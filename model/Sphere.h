@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "HitRecord.h"
 #include "HittableObject.h"
 
 class Sphere : public HittableObject
@@ -15,5 +16,5 @@ public:
     //Setters
     void Setradius(float const r) {radius = r;}
 
-    float TestIntersection(const Ray& ray) override;
+    bool TestIntersection(Ray& ray, HitRecord& hitRecord, float tMin, float tMax) override;
 };

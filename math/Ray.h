@@ -3,27 +3,25 @@
 
 using namespace glm;
 
-class Ray
+struct Ray
 {
-    vec3 Origin, Direction = vec3();
-
-public:
+    vec3 origin, direction = vec3();
     
     //Constructors
     Ray() = default;
     Ray(const vec3 &Orig, const vec3 &Dir)
-        : Origin(Orig), Direction(normalize(Dir)) {}
+        : origin(Orig), direction(normalize(Dir)) {}
 
     //Getters
-    vec3 GetOrigin() const {return Origin;}
-    vec3 GetDirection() const {return Direction;}
+    vec3 GetOrigin() const {return origin;}
+    vec3 GetDirection() const {return direction;}
 
     //Setters
-    void SetOrigin(const vec4 &Orig) {Origin = Orig;}
-    void SetDirection(const vec4 &Dir) {Direction = normalize(Dir);}
+    void SetOrigin(const vec4 &Orig) {origin = Orig;}
+    void SetDirection(const vec4 &Dir) {direction = normalize(Dir);}
 
     //Unique Funcs
-    vec3 At(float t) { return Origin+t*Direction;}
+    vec3 At(float t) { return origin+t*direction;}
     void ToString();
     
 };
