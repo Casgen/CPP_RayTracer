@@ -11,18 +11,22 @@ class Renderer
     Scene& scene;
     float Height, Width;
     sf::Image& ImageBuffer;
+    float sampling = 4;
 
-    ivec4 ViewPort;
-    mat4x4 ModelMat;
-    mat4x4 ProjectionMatPersp;
-    mat4x4 ProjectionMatOrtho = ortho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 100.0f);
+    ivec4 viewPort;
 
 public:
     //Constructors
-    //TODO: Try Adding an rvalue to the imageBuffer
-    Renderer(Scene& sc, const float h, const float w, sf::Image& img )
-        : scene(sc), Height(h), Width(w), ImageBuffer(img), ViewPort(ivec4(0,0,w,h)), ModelMat(mat4x4(1.f)),
-          ProjectionMatPersp(perspective(radians<float>(45.0f), Width / Height, 0.1f, 100.f))
+    /**
+     *  Constructs a renderer
+     *  @param sc - A scene which renderer will work with
+     *  @param h - Height of a Window (viewport)
+     *  @param w - Width of a window (viewport)
+     *  @param img - An image to output the render the results to
+     */
+    template<typename NumType>
+    Renderer(Scene& sc, const NumType h, const NumType w, sf::Image& img )
+        : scene(sc), Height(h), Width(w), ImageBuffer(img), viewPort(ivec4(0,0,w,h))
     {
         ImageBuffer.create(w,h);
     }
@@ -33,5 +37,8 @@ public:
     [[nodiscard]] const sf::Image& GetImage() const {return ImageBuffer; }
 
     //Unique Funcs
+    /**
+     *  Renders an image by it's scene
+     */
     void Render();
 };

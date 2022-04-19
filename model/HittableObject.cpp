@@ -8,7 +8,7 @@ void HittableObject::Translate(vec3 trans)
 }
 
 
-float HittableObject::TestIntersection(const Ray& ray)
+bool HittableObject::TestIntersection(Ray& ray, HitRecord&, float tMin, float tMax)
 {
     return false;
 }
