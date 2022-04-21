@@ -12,10 +12,6 @@ struct Ray
     Ray(const vec3 &Orig, const vec3 &Dir)
         : origin(Orig), direction(normalize(Dir)) {}
 
-    //Getters
-    vec3 GetOrigin() const {return origin;}
-    vec3 GetDirection() const {return direction;}
-
     //Setters
     void SetOrigin(const vec4 &Orig) {origin = Orig;}
     void SetDirection(const vec4 &Dir) {direction = normalize(Dir);}

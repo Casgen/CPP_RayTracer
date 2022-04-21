@@ -166,7 +166,9 @@
     <ClCompile Include="math\Ray.cpp" />
     <ClCompile Include="model\HitRecord.cpp" />
     <ClCompile Include="model\HittableObject.cpp" />
+    <ClCompile Include="model\Lambertian.cpp" />
     <ClCompile Include="model\Light.cpp" />
+    <ClCompile Include="model\Metal.cpp" />
     <ClCompile Include="model\Sphere.cpp" />
     <ClCompile Include="render\Camera.cpp" />
     <ClCompile Include="render\Renderer.cpp" />
@@ -175,10 +177,14 @@
   <ItemGroup>
     <ClInclude Include="math\Aliases.h" />
     <ClInclude Include="math\Color.h" />
+    <ClInclude Include="math\MathUtils.h" />
     <ClInclude Include="math\Ray.h" />
     <ClInclude Include="model\HitRecord.h" />
     <ClInclude Include="model\HittableObject.h" />
+    <ClInclude Include="model\Lambertian.h" />
     <ClInclude Include="model\Light.h" />
+    <ClInclude Include="model\Material.h" />
+    <ClInclude Include="model\Metal.h" />
     <ClInclude Include="model\Sphere.h" />
     <ClInclude Include="render\Camera.h" />
     <ClInclude Include="render\Renderer.h" />
