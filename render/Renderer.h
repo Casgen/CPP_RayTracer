@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Scene.h"
-#include <glm/ext/matrix_clip_space.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <glm/ext/matrix_projection.hpp>
 
@@ -11,8 +10,8 @@ class Renderer
     Scene& scene;
     float Height, Width;
     sf::Image& ImageBuffer;
-    float sampling = 4;
-
+    float sampling = 64;
+    int rayRecursionDepth = 4;
     ivec4 viewPort;
 
 public:
@@ -37,8 +36,10 @@ public:
     [[nodiscard]] const sf::Image& GetImage() const {return ImageBuffer; }
 
     //Unique Funcs
+    
     /**
      *  Renders an image by it's scene
      */
     void Render();
+    Color ColorRay(int& x, int& y, Ray& ray, const int& depth);
 };

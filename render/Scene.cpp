@@ -5,22 +5,24 @@
 using namespace glm;
 
 template<typename T>
-bool Scene::SendARay(Ray& ray, const T& x, const T& y, HitRecord& hitRecord)
+bool Scene::Hit(Ray& ray, HitRecord& hitRecord)
 {
+    bool hitAnything = false;
+    float closestSoFar = tMax;
+    
     if (hittableObjects.capacity() > 0)
     {
         for (HittableObject* object : hittableObjects)
         {
-            ray = cam.CreateARay(x, y);
-            hitRecord = HitRecord();
 
-            if (object->TestIntersection(ray, hitRecord, 0.f, 10.f))
-                return true;
-
-            return false;
+            if (object->TestIntersection(ray, hitRecord, tMin, closestSoFar))
+            {
+                hitAnything = true;
+                closestSoFar = hitRecord.t;
+            }
         }
     }
-    return false;
+    return hitAnything;
 }
 
-template bool Scene::SendARay<float>(Ray& ray, const float& x, const float& y, HitRecord& hitRecord);
+template bool Scene::Hit<float>(Ray& ray, HitRecord& hitRecord);

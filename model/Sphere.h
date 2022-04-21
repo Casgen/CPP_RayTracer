@@ -8,13 +8,14 @@ class Sphere : public HittableObject
 
 public:
     Sphere() = default;
-    Sphere(const vec3 center, const Color col, const float r)
-        : HittableObject(center, col), radius(r) {}
+    Sphere(const vec3 center, const Color col, const float r, const std::shared_ptr<Material> mat)
+        : HittableObject(center, col, mat), radius(r) {}
+    
     //Getters
-    float Getradius() const {return radius;}
+    float GetRadius() const {return radius;}
 
     //Setters
-    void Setradius(float const r) {radius = r;}
+    void SetRadius(float const r) {radius = r;}
 
-    bool TestIntersection(Ray& ray, HitRecord& hitRecord, float tMin, float tMax) override;
+    bool TestIntersection(Ray& ray, HitRecord& hitRecord, float& tMin, float& tMax) override;
 };

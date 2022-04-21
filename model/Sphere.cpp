@@ -1,10 +1,10 @@
 ﻿#include "Sphere.h"
 
-bool Sphere::TestIntersection(Ray& ray, HitRecord& hitRecord, float tMin, float tMax)
+bool Sphere::TestIntersection(Ray& ray, HitRecord& hitRecord, float& tMin, float& tMax)
 {
-    vec3 oc = ray.GetOrigin() - position;
+    vec3 oc = ray.origin - position;
 
-    vec3 rayDirection = ray.GetDirection();
+    const vec3 rayDirection = ray.direction;
     
     float a = pow(length(rayDirection),2); 
     float half_b = dot(oc,rayDirection);
@@ -23,9 +23,12 @@ bool Sphere::TestIntersection(Ray& ray, HitRecord& hitRecord, float tMin, float 
         root = (-half_b + sqrtd) / a;
         if (tMin > root || root > tMax) return false;
     }
-    
+
+    hitRecord = HitRecord();
     hitRecord.t = root;
     hitRecord.point = ray.At(root);
+    hitRecord.material = this->material;
+    
     const vec3 outwardNormal = (hitRecord.point - position) / radius;
 
     hitRecord.SetFaceNormal(ray,outwardNormal);

@@ -1,13 +1,29 @@
 ﻿#include "Renderer.h"
+#include "../math/MathUtils.h"
 
-#include <chrono>
-#include <iomanip>
-#include <iostream>
-#include <memory>
-#include <memory>
-#include <random>
+Color Renderer::ColorRay(int& x, int& y, Ray& ray, const int& depth)
+{
+    if (depth <= 0) return Color(0.f);
 
-static std::mt19937_64 rng;
+    HitRecord hitRecord = HitRecord();
+
+    //Viewport is used here as follows {x = 0, y = 0, z = 800, w = 600} {starting.x, starting.y, width, height}
+    if (scene.Hit<float>(ray, hitRecord))
+    {
+        Ray scattered;
+        Color attenuation;
+        //TODO: The scatter is not working 100% properly. I think that when the depth is just zero, it return a black color
+        //resulting in the black spots
+        if (hitRecord.material->Scatter(ray,hitRecord,attenuation,scattered))
+            return attenuation * ColorRay(x, y, scattered, depth - 1);
+        return {1.f};
+    }
+
+    vec3 unitDirection = normalize(ray.direction);
+    float t = 0.5f * (unitDirection.y + 1.0f);
+    return Color(1.f) * (1.0 - t) + Color(0.5f, 0.7f, 1.0f) * t;
+}
+
 
 void Renderer::Render()
 {
@@ -15,36 +31,16 @@ void Renderer::Render()
     {
         for (int x = 0; x < Width; x++)
         {
-            std::vector<Color> colors;
-            Color num;
-
+            auto num = Color(0.f);
             for (int s = 0; s < sampling; s++)
             {
-                std::uniform_real_distribution<float> randX(0.0, 1.0);
-                std::uniform_real_distribution<float> randY(0.0, 1.0);
-
-                float offsetX = randX(rng);
-                float offsetY = randY(rng);
-
-                Ray ray;
-                HitRecord hitRecord;
-
-                //Viewport is used here as follows {x = 0, y = 0, z = 800, w = 600} {starting.x, starting.y, width, height}
-                if (scene.SendARay<float>(ray, static_cast<float>(x) + offsetX, static_cast<float>(y) + offsetY,
-                                          hitRecord))
-                {
-                    vec3 N = hitRecord.normal;
-                    colors.emplace_back(Color((N.x + 1) * 0.5, (N.y + 1) * 0.5, (N.z + 1) * 0.5));
-                    continue;
-                }
-
-                colors.emplace_back(Color(x/Width,0,1-x/Width));
+                Ray ray = scene.GetCamera().CreateARay<float>(x + MathUtils::RandomFloat(0.f, 1.f),
+                                                              y + MathUtils::RandomFloat(0.f, 1.f));
+                num += ColorRay(x, y, ray, rayRecursionDepth);
             }
 
-            for (auto value : colors)
-                num += value;
-
-            ImageBuffer.setPixel(x, y, (num / sampling).AsSFColor());
+            Color result = num / sampling;
+            ImageBuffer.setPixel(x, y, result.AsSFColor());
         }
     }
 }
