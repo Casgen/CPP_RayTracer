@@ -11,7 +11,7 @@ class Renderer
     float Height, Width;
     sf::Image& ImageBuffer;
     float sampling = 64;
-    int rayRecursionDepth = 4;
+    int rayRecursionDepth = 8; 
     ivec4 viewPort;
 
 public:

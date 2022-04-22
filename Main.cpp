@@ -28,21 +28,21 @@ int main()
                               std::make_shared<Metal>(Color(0.156f, 0.8f, 0.214f)));
     
     Sphere rightSphere = Sphere(vec3(1.f, -0.3f, 0.f), Color(0.5f, 0.468f, 0.89f), 0.15f,
-                              std::make_shared<Metal>(Color(0.487f, 0.214f, 0.874f)));
+                              std::make_shared<Metal>(Color(0.487f, 0.214f, 0.874f),0.5f));
     
     Sphere middleSphere = Sphere(vec3(1.f, 0.f, 0.f), Color(0.5f, 0.468f, 0.89f), 0.15f,
-                              std::make_shared<Metal>(Color(0.f, 0.7f, 0.7f)));
+                              std::make_shared<Lambertian>(Color(0.f, 0.7f, 0.7f)));
     
     Sphere bottomSphere = Sphere(vec3(1.f, 0.f, 3.2f), Color(0.5f, 0.468f, 0.89f), 3.f,
                                  std::make_shared<Lambertian>(Color(0.8f, 0.8f, 0.f)));
-    scene.AddHittableObject(&rightSphere);
     scene.AddHittableObject(&leftSphere);
+    scene.AddHittableObject(&rightSphere);
     scene.AddHittableObject(&middleSphere);
     scene.AddHittableObject(&bottomSphere);
 
     sf::Image img = sf::Image();
     Renderer renderer = Renderer(scene, height, width, img);
-
+    
     std::thread worker = std::thread(&Renderer::Render, &renderer);
 
     while (window.isOpen())

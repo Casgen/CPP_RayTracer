@@ -3,7 +3,7 @@
 
 Color Renderer::ColorRay(int& x, int& y, Ray& ray, const int& depth)
 {
-    if (depth <= 0) return Color(0.f);
+    if (depth <= 0) return {0.f};
 
     HitRecord hitRecord = HitRecord();
 
@@ -12,16 +12,14 @@ Color Renderer::ColorRay(int& x, int& y, Ray& ray, const int& depth)
     {
         Ray scattered;
         Color attenuation;
-        //TODO: The scatter is not working 100% properly. I think that when the depth is just zero, it return a black color
-        //resulting in the black spots
         if (hitRecord.material->Scatter(ray,hitRecord,attenuation,scattered))
             return attenuation * ColorRay(x, y, scattered, depth - 1);
-        return {1.f};
+        return {0.f};
     }
 
     vec3 unitDirection = normalize(ray.direction);
     float t = 0.5f * (unitDirection.y + 1.0f);
-    return Color(1.f) * (1.0 - t) + Color(0.5f, 0.7f, 1.0f) * t;
+    return Color(1.f) * (1.0f - t) + Color(0.5f, 0.7f, 1.0f) * t;
 }
 
 

@@ -3,8 +3,12 @@
 #include "Camera.h"
 #include "../model/HittableObject.h"
 
+/**
+ * @attention WATCH OUT FOR THE tMin value !! if set to high, it can show black spots, when objects are very close to each other.
+ */
 class Scene
 {
+private:
     Camera cam;
     mat4x4 modelMat;
     std::vector<HittableObject*> hittableObjects;
@@ -13,11 +17,15 @@ class Scene
 public:
     //------Constructors-------
     Scene(const Camera& cam, std::vector<HittableObject*> objects)
-        : cam(cam), modelMat(mat4x4()), hittableObjects(std::move(objects)), tMax(100.f), tMin(0.001f)
+        : cam(cam), modelMat(mat4x4()), hittableObjects(std::move(objects)), tMax(INFINITY), tMin(0.001f)
     {
     }
 
-    Scene(const Camera& cam) : cam(cam), modelMat(mat4x4(1.f)), tMax(100.f), tMin(0.1f)
+    /**
+     * Creates a scene with a camera in it
+     * @param cam - A camera
+     */
+    Scene(const Camera& cam) : cam(cam), modelMat(mat4x4()), tMax(INFINITY), tMin(0.001f)
     {
     }
 
@@ -38,13 +46,12 @@ public:
      * Adds a hittable object to the scene
      * @param obj - Hittable object to be added to the array
      */
-    void AddHittableObject(HittableObject* obj)
-    {
-        hittableObjects.push_back(obj);
-    }
+    void AddHittableObject(HittableObject* obj) { hittableObjects.push_back(obj); }
 
     /**
-     *
+     * Based on a given ray it calculates whether the ray hits any of the objects or not
+     * @param ray - Input ray that calculates the intersection with.
+     * @param hitRecord - a HitRecord which outputs a result if an intersection occured.
      */
 
     template <typename T>

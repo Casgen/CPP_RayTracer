@@ -34,7 +34,7 @@ public:
 
     static vec3 Reflect(const vec3& v, const vec3& n)
     {
-        return v - 2*dot(v,n)*n;
+        return v - 2 * dot(v, n) * n;
     }
 
 
@@ -54,4 +54,9 @@ public:
     }
 
     static vec3 RandomUnitVector() { return normalize(RandomInUnitSphere()); }
+
+    static float VectorLengthSquared(const vec3& vec)
+    {
+        return vec.x * vec.x + vec.y * vec.y + vec.z * vec.z;
+    }
 };
