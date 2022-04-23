@@ -181,6 +181,7 @@
     <ClInclude Include="math\Color.h" />
     <ClInclude Include="math\MathUtils.h" />
     <ClInclude Include="math\Ray.h" />
+    <ClInclude Include="model\Dielectric.h" />
     <ClInclude Include="model\HitRecord.h" />
     <ClInclude Include="model\HittableObject.h" />
     <ClInclude Include="model\Lambertian.h" />
