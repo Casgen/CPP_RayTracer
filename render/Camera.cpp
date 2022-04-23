@@ -8,7 +8,7 @@ template<typename NumType>
 void Camera::Yaw(NumType azimuth)
 {
     this->Azimuth = azimuth;
-    CalculateAndSetUpAndViewVector();
+    CalculateAndSetUpVectors();
     CalculateAndSetViewTransformation();
 }
 
@@ -16,7 +16,7 @@ template<typename NumType>
 void Camera::Pitch(NumType zenith)
 {
     this->Zenith = zenith;
-    CalculateAndSetUpAndViewVector();
+    CalculateAndSetUpVectors();
     CalculateAndSetViewTransformation();
 }
 
@@ -31,19 +31,20 @@ template Ray Camera::CreateARay<int>(const int& x, const int& y, const mat4x4& m
 
 
 
-void Camera::CalculateAndSetUpAndViewVector()
+void Camera::CalculateAndSetUpVectors()
 {
-    ViewDirection = vec3(cos(this->Azimuth) * cos(this->Zenith),
+    viewDirection = vec3(cos(this->Azimuth) * cos(this->Zenith),
                          sin(this->Azimuth) * cos(this->Zenith),
                          sin(this->Zenith));
 
-    UpVector = vec3(cos(this->Azimuth) * cos(this->Zenith + glm::pi<float>() / 2),
+    upVector = vec3(cos(this->Azimuth) * cos(this->Zenith + glm::pi<float>() / 2),
                     sin(this->Azimuth) * cos(this->Zenith + glm::pi<float>() / 2),
                     sin(this->Zenith + glm::pi<float>() / 2));
+    sideVector = cross(viewDirection,upVector);
 }
 
 void Camera::CalculateAndSetViewTransformation()
 {
-    viewMat = lookAt(eyePosition, ViewDirection, UpVector);
+    viewMat = lookAt(eyePosition, viewDirection, upVector);
 }
 
